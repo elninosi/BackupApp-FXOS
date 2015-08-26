@@ -1,0 +1,17 @@
+{
+  "name": "SMS Backup",
+  "description": "Backup SMS to the SD card",
+  "type": "certified",
+  "launch_path": "/index.html",
+  "developer": {
+    "name": "Nino Vranešič",
+    "url": "http://elnino.si/"
+  },
+  "permissions": {
+    "contacts":{ "access": "readwrite" },
+    "settings":{ "access": "readonly" },
+    "sms": {},
+    "storage": {},
+    "device-storage:sdcard": { "access": "readwrite" }
+  }
+}
