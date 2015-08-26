@@ -19,3 +19,6 @@ Each messages are store as xml regarding the scheme below :
 	<messageClass>normal</messageClass>
 	
 </message>
+
+
+This is detached fork of https://github.com/frayar/SMSBackupRestore/ in standalone repository.
