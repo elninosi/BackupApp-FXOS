@@ -1,8 +1,17 @@
 {
   "name": "SMS Backup",
   "description": "Backup SMS to the SD card",
+  "version": "0.1",
   "type": "certified",
   "launch_path": "/index.html",
+  "icons": {
+    "256": "/images/SMSbackup256.png",
+	"128": "/images/SMSbackup128.png",
+	"120": "/images/SMSbackup120.png",
+	"90": "/images/SMSbackup90.png",
+	"60": "/images/SMSbackup60.png",
+	"32": "/images/SMSbackup32.png"
+  },
   "developer": {
     "name": "Nino Vranešič",
     "url": "http://elnino.si/"
@@ -13,5 +22,6 @@
     "sms": {},
     "storage": {},
     "device-storage:sdcard": { "access": "readwrite" }
-  }
+  },
+  "default_locale": "en"
 }
