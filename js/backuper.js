@@ -106,7 +106,7 @@ function MessagesBackup() {
     
     alert(foundSmsCount + " messages found.\n Start exporting...");
 
-    messages.unshift('<?xml version="1.0"?>'); // XML document declaration
+    messages.unshift('<?xml version="1.0"?>\n'); // XML document declaration
 
     var oMyBlob = new Blob(messages, { "type" : "text\/xml" }); // the blob
 
