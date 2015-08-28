@@ -19,6 +19,7 @@ function MessagesBackup() {
   alert('Welcome!');
   var global = this;
   var messages = [];
+  var messages1 = [];
 
   var backupSMSButton = document.getElementById("backupSMS");
   backupSMSButton.addEventListener('click', function onMessagesBackupHandler() {
@@ -63,7 +64,10 @@ function MessagesBackup() {
       console.warn('domCursor=' + domCursor);
 
       var xmlMessage = global.BuildXMLMessage(domCursor.result);
+      var HTMLMessage = global.BuildHTMLMessage(domCursor.result);
       messages.push(xmlMessage);
+      messages1.push(HTMLMessage);
+
       foundSmsCount++;
       document.getElementById("log").innerHTML = "SMS found: " + foundSmsCount; // SMS counter status.
       // Now get next message in the list
@@ -86,7 +90,7 @@ function MessagesBackup() {
     var xml = '<message>\n';
     xml += '\t<type>' + message.type + '</type>\n';
     xml += '\t<id>' + message.id + '</id>\n';
-    xml += '\t<threadId >' + message.threadId + '</threadId>\n';
+    xml += '\t<threadId>' + message.threadId + '</threadId>\n';
     xml += '\t<body><![CDATA[' + message.body + ']]></body>\n';
     xml += '\t<delivery>' + message.delivery + '</delivery>\n';
     xml += '\t<read>' + message.read + '</read>\n';
@@ -99,6 +103,23 @@ function MessagesBackup() {
     return xml;
   };
 
+  this.BuildHTMLMessage = function(message) {
+    var html = '<p>';
+    html += '\t<body>'+'Type: ' + message.type + '<br></body>';
+    html += '\t<body>'+'Message ID: ' + message.id + '<br></body>';
+    html += '\t<body>'+ 'Message thread ID: ' + message.threadId + '<br></body>';
+    html += '\t<body>'+'Message body:<br>' + message.body + '<br></body>';
+    html += '\t<body>'+'Is message sent or recieved? ' + message.delivery + '<br></body>';
+    html += '\t<body>'+'Is message readed? ' + message.read + '<br></body>';
+    html += '\t<body>'+'Message receiver: ' + message.receiver + '<br></body>';
+    html += '\t<body>'+'Message sender: ' + message.sender + '<br></body>';
+    html += '\t<body>'+'Time: ' + message.timestamp + '<br></body>';
+    html += '\t<body>'+'Message class: ' + message.messageClass + '<hr></body>';
+    html += '</p>';
+
+    return html;
+  };
+
   /**
    * Export messages in output file (sdcard/backup-messages.xml)
    */
@@ -108,29 +129,45 @@ function MessagesBackup() {
 
     messages.unshift('<?xml version="1.0"?>\n'); // XML document declaration
 
-    var oMyBlob = new Blob(messages, { "type" : "text\/xml" }); // the blob
+    var XMLBlob = new Blob(messages, { "type" : "text\/xml" }); // the blob
+    var HTMLBlob = new Blob(messages1, { "type" : "text\/html" });
 
     var sdcard = navigator.getDeviceStorage("sdcard");
     var del = sdcard.delete("backup-messages.xml"); // delete file if exists
     
     del.onsuccess = function(){
-      alert('File already found. Deleting backup-messages.xml');
+      alert('File already exists. Deleting backup-messages.xml');
     }
     del.onerror = function(){
       alert('Unable to delete the file backup-messages.xml')
     }
 
-    var request = sdcard.addNamed(oMyBlob, "backup-messages.xml");
+    var del1 = sdcard.delete("backup-messages.html"); // delete file if exists
+    del1.onsuccess = function(){
+      alert('File already exists. Deleting backup-messages.html');
+    }
+    del1.onerror = function(){
+      alert('Unable to delete the file backup-messages.html')
+    }
 
-    request.onsuccess = function() {
+    var requestXML = sdcard.addNamed(XMLBlob, "backup-messages.xml");
+
+    requestXML.onsuccess = function() {
       alert('Messages successfully wrote on the sdcard storage area in backup-messages.xml');
     }
-
     // An error typically occur if a file with the same name already exist
-    request.onerror = function() {
+    requestXML.onerror = function() {
       alert('Unable to write the file backup-messages.xml: ' + this.error);
     }
-    
+
+    var requestHTML = sdcard.addNamed(HTMLBlob, "backup-messages.html");
+    requestHTML.onsuccess = function() {
+      alert('Messages successfully wrote on the sdcard storage area in backup-messages.html');
+    }
+    requestHTML.onerror = function() {
+      alert('Unable to write the file backup-messages.html: ' + this.error);
+    }
+
     return 0;
 
   };
