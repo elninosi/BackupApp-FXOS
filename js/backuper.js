@@ -105,16 +105,16 @@ function MessagesBackup() {
 
   this.BuildHTMLMessage = function(message) {
     var html = '<p>';
-    html += '\t<body>'+'Type: ' + message.type + '<br></body>';
-    html += '\t<body>'+'Message ID: ' + message.id + '<br></body>';
-    html += '\t<body>'+ 'Message thread ID: ' + message.threadId + '<br></body>';
-    html += '\t<body>'+'Message body:<br>' + message.body + '<br></body>';
-    html += '\t<body>'+'Is message sent or recieved? ' + message.delivery + '<br></body>';
-    html += '\t<body>'+'Is message readed? ' + message.read + '<br></body>';
-    html += '\t<body>'+'Message receiver: ' + message.receiver + '<br></body>';
-    html += '\t<body>'+'Message sender: ' + message.sender + '<br></body>';
-    html += '\t<body>'+'Time: ' + message.timestamp + '<br></body>';
-    html += '\t<body>'+'Message class: ' + message.messageClass + '<hr></body>';
+    html += 'Type: ' + message.type + '<br>';
+    html += 'Message ID: ' + message.id + '<br>';
+    html += 'Message thread ID: ' + message.threadId + '<br>';
+    html += 'Message body:<br><b>' + message.body + '</b><br>';
+    html += 'Is message sent or recieved? ' + message.delivery + '<br>';
+    html += 'Is message readed? ' + message.read + '<br>';
+    html += 'Message receiver: <b>' + message.receiver + '</b><br>';
+    html += 'Message sender: <b>' + message.sender + '</b><br>';
+    html += 'Time: ' + message.timestamp + '<br>';
+    html += 'Message class: ' + message.messageClass + '<hr>';
     html += '</p>';
 
     return html;
@@ -128,12 +128,14 @@ function MessagesBackup() {
     alert(foundSmsCount + " messages found.\n Start exporting...");
 
     messages.unshift('<?xml version="1.0"?>\n'); // XML document declaration
+    messages1.unshift('<!DOCTYPE html>','<head><title>SMS backup FXOS</title></head>') // HTML document declaration
 
-    var XMLBlob = new Blob(messages, { "type" : "text\/xml" }); // the blob
-    var HTMLBlob = new Blob(messages1, { "type" : "text\/html" });
+
+    var XMLBlob = new Blob(messages, { "type" : "text\/xml" }); // XML blob
+    var HTMLBlob = new Blob(messages1, { "type" : "text\/html" }); // HTML blob
 
     var sdcard = navigator.getDeviceStorage("sdcard");
-    var del = sdcard.delete("backup-messages.xml"); // delete file if exists
+    var del = sdcard.delete("backup-messages.xml"); // delete XML file if exists
     
     del.onsuccess = function(){
       alert('File already exists. Deleting backup-messages.xml');
@@ -142,7 +144,7 @@ function MessagesBackup() {
       alert('Unable to delete the file backup-messages.xml')
     }
 
-    var del1 = sdcard.delete("backup-messages.html"); // delete file if exists
+    var del1 = sdcard.delete("backup-messages.html"); // delete HTML file if exists
     del1.onsuccess = function(){
       alert('File already exists. Deleting backup-messages.html');
     }
