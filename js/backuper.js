@@ -104,6 +104,8 @@ function MessagesBackup() {
   };
 
   this.BuildHTMLMessage = function(message) {
+    var date = new Date (message.timestamp); //convert date to human readable form
+
     var html = '<p>';
     html += 'Type: ' + message.type + '<br>';
     html += 'Message ID: ' + message.id + '<br>';
@@ -113,7 +115,7 @@ function MessagesBackup() {
     html += 'Is message readed? ' + message.read + '<br>';
     html += 'Message receiver: <b>' + message.receiver + '</b><br>';
     html += 'Message sender: <b>' + message.sender + '</b><br>';
-    html += 'Time: ' + message.timestamp + '<br>';
+    html += 'Time: ' + date + '<br>';
     html += 'Message class: ' + message.messageClass + '<hr>';
     html += '</p>';
 
