@@ -39,7 +39,7 @@ function MessagesBackup() {
    */ 
   this.BackupMessages = function() {
 
-    alert('Starting BackupMessages!');
+    alert('Backup in progress ...');
 
     // Get message manager
      var smsManager = window.navigator.mozSms || window.navigator.mozMobileMessage;
@@ -137,23 +137,24 @@ function MessagesBackup() {
     var HTMLBlob = new Blob(messages1, { "type" : "text\/html" }); // HTML blob
 
     var sdcard = navigator.getDeviceStorage("sdcard");
+
     var del = sdcard.delete("backup-messages.xml"); // delete XML file if exists
-    
+ /*  
     del.onsuccess = function(){
       alert('File already exists. Deleting backup-messages.xml');
     }
     del.onerror = function(){
-      alert('Unable to delete the file backup-messages.xml')
+      alert('Unable to delete the file backup-messages.xml');
     }
-
+*/
     var del1 = sdcard.delete("backup-messages.html"); // delete HTML file if exists
-    del1.onsuccess = function(){
+ /*   del1.onsuccess = function(){
       alert('File already exists. Deleting backup-messages.html');
     }
     del1.onerror = function(){
-      alert('Unable to delete the file backup-messages.html')
+      alert('Unable to delete the file backup-messages.html');
     }
-
+*/
     var requestXML = sdcard.addNamed(XMLBlob, "backup-messages.xml");
 
     requestXML.onsuccess = function() {
