@@ -11,6 +11,7 @@
 
  **/
 
+
 function MessagesBackup() {
 
   //-------------------------------------------------------------------------------------
@@ -25,10 +26,6 @@ function MessagesBackup() {
   backupSMSButton.addEventListener('click', function onMessagesBackupHandler() {
       window.setTimeout(global.BackupMessages, 0);
   });
-
-  
-
-  
 
   //-------------------------------------------------------------------------------------
   // BACKUP MESSAGES
@@ -80,7 +77,6 @@ function MessagesBackup() {
       alert("sms.getMessages error: " + request.error.name);
     };
     
-
   };
 
   /**
@@ -126,7 +122,7 @@ function MessagesBackup() {
    * Export messages in output file (sdcard/backup-messages.xml)
    */
   this.ExportMessages = function(foundSmsCount) {
-    
+
     alert(foundSmsCount + " messages found.\n Start exporting...");
 
     messages.unshift('<?xml version="1.0"?>\n'); // XML document declaration
@@ -173,13 +169,13 @@ function MessagesBackup() {
       alert('Unable to write the file backup-messages.html: ' + this.error);
     }
 
+
+  }
+
     return 0;
 
   };
 
- 
-
- }
 
 window.addEventListener('DOMContentLoaded', function() {
   var backuper = new MessagesBackup();
