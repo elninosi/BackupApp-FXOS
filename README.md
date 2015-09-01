@@ -3,7 +3,8 @@ Firefox OS app for fetching contacts from phone.
 
 Creates backup-messages.xml and backup-messages.xml in your SD card.
 
-![App screenshot](http://s29.postimg.org/u9tzpdu12/SMSbackup.jpg)
+App screenshots:
+![App Screenshot](https://cloud.githubusercontent.com/assets/11082452/9606333/1a9476b2-50c3-11e5-9bbc-5068a980bf3d.jpg)
 
 Messages are stored as XML regarding the scheme below :
 
