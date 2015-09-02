@@ -27,6 +27,9 @@ function MessagesBackup() {
       window.setTimeout(global.BackupMessages, 0);
   });
 
+  
+ 
+
   //-------------------------------------------------------------------------------------
   // BACKUP MESSAGES
   //-------------------------------------------------------------------------------------
@@ -133,6 +136,15 @@ function MessagesBackup() {
     var HTMLBlob = new Blob(messages1, { "type" : "text\/html" }); // HTML blob
 
     var sdcard = navigator.getDeviceStorage("sdcard");
+    
+    if(sdcard!=null)
+    {
+      console.log("Sdcard found.");
+    }
+    else
+    {
+      alert("Sdcard not found on your device.");
+    }
 
     var del = sdcard.delete("backup-messages.xml"); // delete XML file if exists
  /*  
