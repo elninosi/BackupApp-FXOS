@@ -1,23 +1,12 @@
 'use strict';
 
-/***
- This class handles the activity regarding
- the messages exports to the SD memory card
-
- Refer to:
- https://developer.mozilla.org/en-US/docs/Web/API/MozSmsManager -- windows.navigator.MozSmsManager
- https://developer.mozilla.org/en-US/docs/Web/API/MozMobileMessageManager -- window.navigator.mozMobileMessage 
- https://developer.mozilla.org/en-US/docs/Web/API/MozSmsMessage
-
- **/
-
 
 function MessagesBackup() {
 
   //-------------------------------------------------------------------------------------
   // OBJET INITIALISATION
   //-------------------------------------------------------------------------------------
-  alert('Welcome!');
+  alert('Welcome!\n \n This app allows you to backup SMS messages in XML and HTML format on your SD card.');
   var global = this;
   var messages = [];
   var messages1 = [];
@@ -27,16 +16,7 @@ function MessagesBackup() {
       window.setTimeout(global.BackupMessages, 0);
   });
 
-  
- 
 
-  //-------------------------------------------------------------------------------------
-  // BACKUP MESSAGES
-  //-------------------------------------------------------------------------------------
-
-  /**
-   * Backup messages
-   */ 
   this.BackupMessages = function() {
 
     alert('Backup in progress ...');
@@ -83,7 +63,7 @@ function MessagesBackup() {
   };
 
   /**
-   * Build message xml string
+   * Build message XML and HTML string
    */
   this.BuildXMLMessage = function(message) {
     var xml = '<message>\n';
@@ -122,7 +102,7 @@ function MessagesBackup() {
   };
 
   /**
-   * Export messages in output file (sdcard/backup-messages.xml)
+   * Export messages in output file (backup-messages.xml and backup-messages.html)
    */
   this.ExportMessages = function(foundSmsCount) {
 
@@ -137,50 +117,52 @@ function MessagesBackup() {
 
     var sdcard = navigator.getDeviceStorage("sdcard");
     
-    if(sdcard!=null)
+    if(sdcard!=null) // Check for SDcard
     {
-      console.log("Sdcard found.");
+      console.log("Sd card found.");
     }
     else
     {
-      alert("Sdcard not found on your device.");
+      alert("Sd card not found on your device.");
     }
 
-    var del = sdcard.delete("backup-messages.xml"); // delete XML file if exists
- /*  
-    del.onsuccess = function(){
-      alert('File already exists. Deleting backup-messages.xml');
-    }
-    del.onerror = function(){
-      alert('Unable to delete the file backup-messages.xml');
-    }
-*/
-    var del1 = sdcard.delete("backup-messages.html"); // delete HTML file if exists
- /*   del1.onsuccess = function(){
-      alert('File already exists. Deleting backup-messages.html');
-    }
-    del1.onerror = function(){
-      alert('Unable to delete the file backup-messages.html');
-    }
-*/
-    var requestXML = sdcard.addNamed(XMLBlob, "backup-messages.xml");
-
-    requestXML.onsuccess = function() {
-      alert('Messages successfully wrote on the sdcard storage area in backup-messages.xml');
+    var fileXMLHTML = sdcard.addNamed(XMLBlob, "backup-messages.xml") && sdcard.addNamed(HTMLBlob, "backup-messages.html");   // Save files 
+    fileXMLHTML.onsuccess = function() {
+      alert('Messages successfully wrote on the sdcard storage area in backup-messages.xml and backup-messages.html');
     }
     // An error typically occur if a file with the same name already exist
-    requestXML.onerror = function() {
-      alert('Unable to write the file backup-messages.xml: ' + this.error);
-    }
+    fileXMLHTML.onerror = function() {
+      console.warn('Unable to write the file backup-messages.xml and backup-messages.html: ' + this.error.name);
+      //alert('Unable to write the file backup-messages.xml and backup-messages.html: ' + this.error.name); // testing error messages
 
-    var requestHTML = sdcard.addNamed(HTMLBlob, "backup-messages.html");
-    requestHTML.onsuccess = function() {
-      alert('Messages successfully wrote on the sdcard storage area in backup-messages.html');
-    }
-    requestHTML.onerror = function() {
-      alert('Unable to write the file backup-messages.html: ' + this.error);
-    }
+      if(this.error.name=="Unknown") // occurs when you can't access SD card.
+      {
+        alert("Error: Can't access your SD Card: \nDisable USB storage on your device, unplug USB cable and try again.")
+      }
+      
+      if(this.error.name=="NoModificationAllowedError")
+      {
+        var XMLexists = window.confirm("Files backup-messages.xml and backup-messages.html already exist. \n \nDo you want to replace them?")
 
+        if(XMLexists)
+        {
+          var del = sdcard.delete("backup-messages.xml") && sdcard.delete("backup-messages.html"); // delete XML and HTML file 
+           
+          del.onsuccess = function()
+          {
+            var replace = sdcard.addNamed(XMLBlob, "backup-messages.xml") && sdcard.addNamed(HTMLBlob, "backup-messages.html"); 
+            alert('Files backup-messages.xml and backup-messages.html were replaced with newer versions.');
+          }
+
+          del.onerror = function()
+          {
+            alert('Unable to delete files backup-messages.xml and backup-messages.html');
+          }
+        }
+        else
+          alert("Files backup-messages.xml and backup-messages.html were not replaced.");
+      }
+    }
 
   }
 
