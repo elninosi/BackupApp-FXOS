@@ -142,9 +142,9 @@ function MessagesBackup() {
       
       if(this.error.name=="NoModificationAllowedError")
       {
-        var XMLexists = window.confirm("Files backup-messages.xml and backup-messages.html already exist. \n \nDo you want to replace them?")
+        var fileExists = window.confirm("Files backup-messages.xml and backup-messages.html already exist. \n \nDo you want to replace them?")
 
-        if(XMLexists)
+        if(fileExists)
         {
           var del = sdcard.delete("backup-messages.xml") && sdcard.delete("backup-messages.html"); // delete XML and HTML file 
            
