@@ -1,11 +1,38 @@
 'use strict';
 
+function DeleteFile(){
+
+var global = this;
+var deleteSMSButton = document.getElementById("deleteSMS");
+deleteSMSButton.addEventListener('click', function onDeleteFileHandler(){
+  window.setTimeout(global.Deleter, 0);
+})
+
+  this.Deleter = function()
+  {
+
+  var sdcard = navigator.getDeviceStorage("sdcard");
+  var del1 = sdcard.delete("backup-messages.xml") && sdcard.delete("backup-messages.html"); // delete XML and HTML files
+
+    del1.onsuccess = function()
+          { 
+            alert('Files backup-messages.xml and backup-messages.html were successfully deleted.');
+          }
+
+    del1.onerror = function()
+          {
+            alert('Unable to delete files backup-messages.xml and backup-messages.html');
+          }
+  }
+}
 
 function MessagesBackup() {
 
   //-------------------------------------------------------------------------------------
   // OBJET INITIALISATION
   //-------------------------------------------------------------------------------------
+  document.getElementById("deleteSMS").style.display="none"; // Hide delete button for now.
+
   alert('Welcome!\n \n This app allows you to backup SMS messages in XML and HTML format on your SD card.');
   var global = this;
   var messages = [];
@@ -14,6 +41,8 @@ function MessagesBackup() {
   var backupSMSButton = document.getElementById("backupSMS");
   backupSMSButton.addEventListener('click', function onMessagesBackupHandler() {
       window.setTimeout(global.BackupMessages, 0);
+
+
   });
 
 
@@ -126,6 +155,9 @@ function MessagesBackup() {
       alert("Sd card not found on your device.");
     }
 
+    document.getElementById("deleteSMS").style.display="initial"; // Now show delete button.
+    document.getElementById("backupSMS").style.display="none"; // Hide SMS backup button.
+
     var fileXMLHTML = sdcard.addNamed(XMLBlob, "backup-messages.xml") && sdcard.addNamed(HTMLBlob, "backup-messages.html");   // Save files 
     fileXMLHTML.onsuccess = function() {
       alert('Messages successfully wrote on the sdcard storage area in backup-messages.xml and backup-messages.html');
@@ -146,7 +178,7 @@ function MessagesBackup() {
 
         if(fileExists)
         {
-          var del = sdcard.delete("backup-messages.xml") && sdcard.delete("backup-messages.html"); // delete XML and HTML file 
+          var del = sdcard.delete("backup-messages.xml") && sdcard.delete("backup-messages.html"); // delete XML and HTML files 
            
           del.onsuccess = function()
           {
@@ -173,4 +205,8 @@ function MessagesBackup() {
 
 window.addEventListener('DOMContentLoaded', function() {
   var backuper = new MessagesBackup();
+});
+
+window.addEventListener('DOMContentLoaded', function(){
+  var deleter = new DeleteFile();
 });
