@@ -14,12 +14,11 @@ body {
     font-family: sans-serif;
     line-height: 1.6;
     min-height: 100%; 
-    background-image: -moz-radial-gradient(top, circle, #00CAF2 40%, #004AAB 95%);  
+    background-image: -moz-radial-gradient(top, circle, #00A5C5 40%, #004AAB 95%); 
 }
 
-
 .content {
-    padding: 1rem 0.5rem;
+    padding: 1.6rem;
     text-align:center;
 }
 
@@ -27,18 +26,37 @@ body {
     position: relative;
     width: 100%;
     text-align: center;
-    background: #00CAF2;
     color: #fff;
     padding: 0.75rem 0.5rem;
     text-shadow: 3px 2px 1px #111;
     font-weight: normal;
-    border-bottom: 2px solid #444;
+    border-bottom: 2.5px solid #666666;
+
+}
+
+.action-button {
+  width: 15rem;
+  position: relative;
+  font-size: 1.6rem;
+  padding: 10px 40px;
+  border-radius: 10px;
+  color: #FFF;
+  text-decoration: none;
+  transition: all 0.1s;
+  background-color: #323232;
+  border-bottom: 5px solid #666;
+  text-align: center;
+}
+
+.action-button:active {
+  transform: translate(0px, 5px);
+  border-bottom: 1px solid;
 }
 
 #exit {
     position: relative;
     float: right;
-    top:-2px;
+    top:-4px;
     width: 60px; 
     height: 60px;    
 }
@@ -47,19 +65,3 @@ p {
     margin: 1rem 0;
 }
 
-button {
-    height: 5.8rem;
-    width: 14.8rem;
-    margin: 0 0 1rem;
-    padding: 0 1.5rem;
-    background: #fafafa;
-    border: 0.1rem solid #a6a6a6;
-    font-size: 1.6rem;
-    line-height: 3.8rem;
-    color: #333;
-    text-align: center;
-    text-shadow: 0.1rem 0.1rem 0 rgba(255,255,255,0.3);
-    text-decoration: none;
-    outline: none;
-    border-radius: 30px;
-}
