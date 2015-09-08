@@ -13,19 +13,30 @@ body {
 
 }
 
-h1 {
-    text-align: center;
-    background: #00AACC;
-    color: #fff;
-    padding: 0.75rem 0.5rem;
-    text-shadow: 2px 2px 1px #111;
-    font-weight: normal;
-    border-bottom: 1px solid #444;
-}
 
 .content {
     padding: 1rem 0.5rem;
     text-align:center;
+}
+
+.top {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    background: #00CAF2;
+    color: #fff;
+    padding: 0.75rem 0.5rem;
+    text-shadow: 3px 2px 1px #111;
+    font-weight: normal;
+    border-bottom: 1px solid #444;
+}
+
+#exit {
+    position: relative;
+    float: right;
+    top:-2px;
+    width: 60px; 
+    height: 60px;    
 }
 
 p {
