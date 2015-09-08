@@ -1,6 +1,19 @@
 'use strict';
 
-function DeleteFile(){
+function ExitApp(){ // function for closing app
+  var global = this;
+  var closeAPP = document.getElementById("exit");
+  closeAPP.addEventListener('click', function onExitAppHandler(){
+    window.setTimeout(global.Exit, 0);
+  })
+
+  this.Exit = function()
+  {
+    window.close(); // close the app
+  }
+}
+
+function DeleteFile(){ // function for deleting files
 
 var global = this;
 var deleteSMSButton = document.getElementById("deleteSMS");
@@ -26,11 +39,8 @@ deleteSMSButton.addEventListener('click', function onDeleteFileHandler(){
   }
 }
 
-function MessagesBackup() {
+function MessagesBackup() { //function for SMS backup
 
-  //-------------------------------------------------------------------------------------
-  // OBJET INITIALISATION
-  //-------------------------------------------------------------------------------------
   document.getElementById("deleteSMS").style.display="none"; // Hide delete button for now.
 
   alert('Welcome!\n \n This app allows you to backup SMS messages in XML and HTML format on your SD card.');
@@ -209,4 +219,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
 window.addEventListener('DOMContentLoaded', function(){
   var deleter = new DeleteFile();
+});
+
+window.addEventListener('DOMContentLoaded', function(){
+  var exiter = new ExitApp();
 });
