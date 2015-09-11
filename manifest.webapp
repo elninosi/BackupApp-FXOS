@@ -5,12 +5,10 @@
   "type": "certified",
   "launch_path": "/index.html",
   "icons": {
-    "256": "/images/SMSbackup256.png",
-	"128": "/images/SMSbackup128.png",
+    "284": "/images/SMSbackup284.png",
 	"120": "/images/SMSbackup120.png",
-	"90": "/images/SMSbackup90.png",
-	"60": "/images/SMSbackup60.png",
-	"32": "/images/SMSbackup32.png"
+	"84": "/images/SMSbackup84.png",
+	"60": "/images/SMSbackup60.png"
   },
   "developer": {
     "name": "Nino Vranešič",
