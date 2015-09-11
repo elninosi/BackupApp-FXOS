@@ -22,6 +22,12 @@ body {
     text-align:center;
 }
 
+#log {
+    color: white;
+    font-weight: bolder;
+    font-size: 1.1rem;
+}
+
 .top {
     font-family: sans-serif;
     position: relative;
