@@ -4,7 +4,7 @@ Firefox OS app for fetching SMS messages from phone.
 Creates backup-messages.xml and backup-messages.xml in your SD card.
 
 ###App screenshots:
-![sms backup](https://cloud.githubusercontent.com/assets/11082452/9797252/79ed4b1e-57fa-11e5-9c1d-89928698e42f.jpg)
+![smsbackup screenshots](https://cloud.githubusercontent.com/assets/11082452/9813430/b4850812-5885-11e5-8840-e7216903be32.jpg)
 
 ###Exported messages schemes:
 Messages are stored as XML regarding the scheme below :
