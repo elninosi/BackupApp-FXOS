@@ -3,6 +3,7 @@
     padding: 0;
     margin: 0;
     -moz-box-sizing: border-box;
+    font-weight: 300;
 }
 
 html {
@@ -30,7 +31,6 @@ body {
     text-align: center;
     color: #fff;
     padding: 0 1rem 0 3rem;
-    font-weight: lighter;
     font-style: italic;
     font-size: 12px;
     background: #0ac;
