@@ -1,5 +1,115 @@
 'use strict';
 
+function ContactsBackup() {
+ var global = this;
+ var contacts = [];
+ var backupContactsButton = document.getElementById("contact");
+ backupContactsButton.addEventListener('click', function onConctactBackupHandler() {
+    window.setTimeout(global.BackupContacts, 0);
+ });
+
+ this.BackupContacts = function()
+  {
+    alert('Contacts backup in progres ...');
+
+    var request = navigator.mozContacts.getAll();
+    var foundContactsCount = 0;
+
+    request.onsuccess = function () {
+      var domCursor1 = request;
+      if (!domCursor1.result) 
+      {
+        console.log('End of contacts');
+        global.ExportContacts(foundContactsCount);
+        return;
+      }
+      
+        var HTMLContact = global.BuildHTMLContact(domCursor1.result);
+        contacts.push(HTMLContact);
+
+        foundContactsCount++;
+        //console.log(this.result.givenName + ' ' + this.result.familyName + ' ' + JSON.stringify(this.result.tel));
+        //alert(domCursor1.result.givenName + ' ' + domCursor1.result.familyName + ' \n' + JSON.stringify(domCursor1.result.tel));
+        document.getElementById("log").innerHTML = "Contacts found: " + foundContactsCount; // Contacts counter status.
+        domCursor1.continue(); 
+
+    };
+
+    request.onerror = function () {
+      alert("Received 'onerror' Contact request event.")
+      alert('Get Contacts error: ' + request.error.name);
+    };
+
+  }
+
+  this.BuildHTMLContact = function(contact)
+  {
+       var html1 = '<p>';
+        html1 += 'Given name: ' + contact.givenName + '<br>';
+        html1 += 'Family name: ' + contact.familyName + '<br>';
+        html1 += 'Telephone number: ' + JSON.stringify(contact.tel) + '<br>';
+        html1 += '</p>';
+
+        return html1;
+  };
+
+  this.ExportContacts = function(foundContactsCount) {
+    alert (foundContactsCount + " contacts found. \n Start exporting...");
+
+    contacts.unshift(('<!DOCTYPE html>','<head><title>Contacts backup FXOS</title></head>'))
+
+    var HTMLContactsBlob = new Blob(contacts, { "type" : "text\/html" });
+    var sdcard = navigator.getDeviceStorage("sdcard");
+
+    if(sdcard!=null) // Check for SDcard
+    {
+      console.log("Sd card found.");
+    }
+    else
+    {
+      alert("Sd card not found on your device.");
+    }
+
+    document.getElementById("deleteSMS").style.display="initial"; // Now show delete button.
+    document.getElementById("contact").style.display="none"; // Hide Contacts backup button.
+
+    var fileContactsHTML = sdcard.addNamed(HTMLContactsBlob, "backup-contacts.html");
+    fileContactsHTML.onsuccess = function(){
+      alert('Contacts successfully wrote on the sdcard storage area in backup-contacts.html')
+    }
+    fileContactsHTML.onerror = function(){
+      if(this.error.name=="Unknown") // occurs when you can't access SD card.
+      {
+        alert("Error: Can't access your SD Card: \nDisable USB storage on your device, unplug USB cable and try again.")
+      }
+      
+      if(this.error.name=="NoModificationAllowedError")
+       {
+        var fileExists = window.confirm("File backup-contacts.html already exist. \n \nDo you want to replace it?")
+
+        if(fileExists)
+        {
+          var del = sdcard.delete("backup-contacts.html"); // delete HTML file 
+           
+          del.onsuccess = function()
+          {
+            var replace = sdcard.addNamed(HTMLContactsBlob, "backup-contacts.html"); 
+            alert('File backup-contacts.html was replaced with newer versions.');
+          }
+
+          del.onerror = function()
+          {
+            alert('Unable to delete file backup-contacts.html');
+          }
+        }
+        else
+          alert("File backup-contacts.html was not replaced.");
+      }
+    }
+  }
+
+}
+
 function ExitApp(){ // function for closing app
   var global = this;
   var closeAPP = document.getElementById("exit");
@@ -25,16 +135,16 @@ deleteSMSButton.addEventListener('click', function onDeleteFileHandler(){
   {
 
   var sdcard = navigator.getDeviceStorage("sdcard");
-  var del1 = sdcard.delete("backup-messages.xml") && sdcard.delete("backup-messages.html"); // delete XML and HTML files
+  var del1 = sdcard.delete("backup-messages.xml") && sdcard.delete("backup-messages.html") && sdcard.delete("backup-contacts.html"); // delete XML and HTML files
 
     del1.onsuccess = function()
           { 
-            alert('Files backup-messages.xml and backup-messages.html were successfully deleted.');
+            alert('Files backup-messages and backup-contacts were successfully deleted.');
           }
 
     del1.onerror = function()
           {
-            alert('Unable to delete files backup-messages.xml and backup-messages.html');
+            alert('Unable to delete files backup-messages and backup-contacts.');
           }
   }
 }
@@ -58,7 +168,7 @@ function MessagesBackup() { //function for SMS backup
 
   this.BackupMessages = function() {
 
-    alert('Backup in progress ...');
+    alert('SMS backup in progress ...');
 
     // Get message manager
      var smsManager = window.navigator.mozSms || window.navigator.mozMobileMessage;
@@ -215,6 +325,10 @@ function MessagesBackup() { //function for SMS backup
 
 window.addEventListener('DOMContentLoaded', function() {
   var backuper = new MessagesBackup();
+});
+
+window.addEventListener('DOMContentLoaded', function(){
+  var contacter = new ContactsBackup();
 });
 
 window.addEventListener('DOMContentLoaded', function(){

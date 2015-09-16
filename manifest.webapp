@@ -1,14 +1,14 @@
 {
-  "name": "SMS Backup",
-  "description": "Backup SMS to the SD card",
-  "version": "0.1",
+  "name": "Backup App",
+  "description": "Backup Contacts and SMS to the SD card",
+  "version": "0.2",
   "type": "certified",
   "launch_path": "/index.html",
   "icons": {
-    "284": "/images/SMSbackup284.png",
-	"120": "/images/SMSbackup120.png",
-	"84": "/images/SMSbackup84.png",
-	"60": "/images/SMSbackup60.png"
+    "284": "/images/backup284.png",
+	"120": "/images/backup120.png",
+	"84": "/images/backup84.png",
+	"60": "/images/backup60.png"
   },
   "developer": {
     "name": "Nino Vranešič",
