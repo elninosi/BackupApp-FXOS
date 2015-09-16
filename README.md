@@ -1,7 +1,8 @@
-# SMS-backup-FXOS
-Firefox OS app for fetching SMS messages from phone.
+# BackupApp-FXOS
 
-Creates backup-messages.xml and backup-messages.xml in your SD card.
+Firefox OS app for fetching SMS messages and Contacts from phone.
+
+Creates backup-messages.xml, backup-messages.xml and backup-contacts.html in your SD card.
 
 ###App screenshots:
 ![smsbackup screenshots](https://cloud.githubusercontent.com/assets/11082452/9813430/b4850812-5885-11e5-8840-e7216903be32.jpg)
@@ -41,11 +42,21 @@ Time: TIME
 Message class: normal
 
 ```
-<br>
+</message>
+###Exported Contacts scheme:
+Contats are stored as HTML regarding the scheme below :
+<message>
+
+```
+Given name: name
+Family name: surname
+Telephone number: [{"type":["other"],"value":"xxxxxxxxxx"}]
+
+```
 </message>
 
 ### RAM consumption:
-Warning: If the number of SMS is high RAM consuption will greatly increase.
+Warning: If the number of SMS and/or Contacts is high RAM consuption will greatly increase.
 
 Example for 11000+ messages, RAM consumption = 70MB+
 ![RAM conspumtion](https://cloud.githubusercontent.com/assets/11082452/9714199/85285434-5556-11e5-9bc2-953123935270.gif)
