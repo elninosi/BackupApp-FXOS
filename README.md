@@ -58,8 +58,8 @@ Telephone number: [{"type":["other"],"value":"xxxxxxxxxx"}]
 ### RAM consumption:
 Warning: If the number of SMS and/or Contacts is high RAM consuption will greatly increase.
 
-Example for 11000+ messages, RAM consumption = 70MB+
-![RAM conspumtion](https://cloud.githubusercontent.com/assets/11082452/9714199/85285434-5556-11e5-9bc2-953123935270.gif)
+Example for 11600+ messages and 200+ Contacts RAM consumption is 75MB+
+![ezgif com-crop](https://cloud.githubusercontent.com/assets/11082452/9956713/2f118662-5dfb-11e5-9922-1d591fa7dce9.gif)
 
 
 This is detached fork of [SMSBackupRestore](https://github.com/frayar/SMSBackupRestore/) in standalone repository.
