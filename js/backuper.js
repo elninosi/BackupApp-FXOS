@@ -56,7 +56,7 @@ function ContactsBackup() {
   this.ExportContacts = function(foundContactsCount) {
     alert (foundContactsCount + " contacts found. \n Start exporting...");
 
-    contacts.unshift(('<!DOCTYPE html>','<head><title>Contacts backup FXOS</title></head>'))
+    contacts.unshift(('<!DOCTYPE html>','<head><title>Contacts backup FXOS</title><meta charset="utf-8"></head>')) //HTML declaration, UTF-8 encoding.
 
     var HTMLContactsBlob = new Blob(contacts, { "type" : "text\/html" });
     var sdcard = navigator.getDeviceStorage("sdcard");
@@ -258,7 +258,7 @@ function MessagesBackup() { //function for SMS backup
     alert(foundSmsCount + " messages found.\n Start exporting...");
 
     messages.unshift('<?xml version="1.0"?>\n'); // XML document declaration
-    messages1.unshift('<!DOCTYPE html>','<head><title>SMS backup FXOS</title></head>') // HTML document declaration
+    messages1.unshift('<!DOCTYPE html>','<head><title>SMS backup FXOS</title><meta charset="utf-8"></head>') // HTML document declaration, UTF-8 encoding
 
 
     var XMLBlob = new Blob(messages, { "type" : "text\/xml" }); // XML blob
