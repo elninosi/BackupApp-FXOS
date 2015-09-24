@@ -9,7 +9,25 @@ function ExitApp(){ // function for closing app
 
   this.Exit = function()
   {
-    window.close(); // close the app
+   window.close(); // close the app
+  }
+}
+
+function DeleteApp(){
+  var global = this;
+  var DeleteApplication = document.getElementById("DeleteApp");
+  DeleteApplication.addEventListener('click', function onDeleteAppHandler(){
+    window.setTimeout(global.DeleteBackupApp, 0);
+  })
+
+  this.DeleteBackupApp = function()
+  {
+     var request = window.navigator.mozApps.getSelf();
+      request.onsuccess = function() 
+      {
+        var origin = request.result;
+        var DeleteApplication = navigator.mozApps.mgmt.uninstall(origin);
+      };
   }
 }
 
@@ -42,6 +60,7 @@ function DeleteFile(){ // function for deleting files
 function MessagesBackup(){ //function for SMS backup
 
   document.getElementById("deleteSMS").style.display="none"; // Hide delete button for now.
+  document.getElementById("DeleteApp").style.display="none"; // Hide Delete App button. for now.
 
   alert('Welcome!\n \n This app allows you to backup SMS messages and Contacts in XML and HTML format on your SD card.');
   var global = this;
@@ -165,7 +184,9 @@ function MessagesBackup(){ //function for SMS backup
     }
 
     document.getElementById("deleteSMS").style.display="initial"; // Now show delete button.
+    document.getElementById("DeleteApp").style.display="initial"; // Now show Delete App button.
     document.getElementById("backupSMS").style.display="none"; // Hide SMS backup button.
+
 
     var fileXMLHTML = sdcard.addNamed(XMLBlob, "backup-messages.xml") && sdcard.addNamed(HTMLBlob, "backup-messages.html");   // Save files 
     fileXMLHTML.onsuccess = function() {
@@ -279,6 +300,7 @@ function ContactsBackup() {
     }
 
     document.getElementById("deleteSMS").style.display="initial"; // Now show delete button.
+    document.getElementById("DeleteApp").style.display="initial"; // Now show Delete App button.
     document.getElementById("contact").style.display="none"; // Hide Contacts backup button.
 
     var fileContactsHTML = sdcard.addNamed(HTMLContactsBlob, "backup-contacts.html");
@@ -317,7 +339,7 @@ function ContactsBackup() {
   }
 }
 
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('DOMContentLoaded', function(){
   var backuper = new MessagesBackup();
 });
 
@@ -332,3 +354,7 @@ window.addEventListener('DOMContentLoaded', function(){
 window.addEventListener('DOMContentLoaded', function(){
   var exiter = new ExitApp();
 });
+
+window.addEventListener('DOMContentLoaded', function(){
+  var appDeleter = new DeleteApp();
+})

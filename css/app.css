@@ -80,6 +80,11 @@ body {
     height: 60px;
 }
 
+#DeleteApp {
+  background: #E51E1E;
+  color: #FFFFFF;
+}
+
 p {
     margin: 1rem 0;
 }
