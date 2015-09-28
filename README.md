@@ -55,6 +55,18 @@ Telephone number: [{"type":["other"],"value":"xxxxxxxxxx"}]
 ```
 </message>
 
+</message>
+###Exported Wifi info scheme:
+Wifi info (known networks) are stored as HTML regarding the scheme below :
+<message>
+
+```
+SSID: SSID of network
+Security: Network security type (WPA-EAP/WPA-PSK)
+Known: true
+
+```
+
 ### RAM consumption:
 Warning: If the number of SMS and/or Contacts is high RAM consuption will greatly increase.
 
