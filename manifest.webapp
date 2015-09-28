@@ -20,7 +20,8 @@
     "sms": {},
     "storage": {},
     "device-storage:sdcard": { "access": "readwrite" },
-    "webapps-manage" : {}
+    "webapps-manage" : {},
+    "wifi-manage":{}
   },
   "default_locale": "en"
 }

@@ -28,7 +28,7 @@ function DeleteApp(){
         var origin = request.result;
         var DeleteApplication = navigator.mozApps.mgmt.uninstall(origin);
       };
-  }
+  } //function for deleting app
 }
 
 function DeleteFile(){ // function for deleting files
@@ -43,11 +43,11 @@ function DeleteFile(){ // function for deleting files
   {
 
   var sdcard = navigator.getDeviceStorage("sdcard");
-  var del1 = sdcard.delete("backup-messages.xml") && sdcard.delete("backup-messages.html") && sdcard.delete("backup-contacts.html"); // delete XML and HTML files
+  var del1 = sdcard.delete("backup-messages.xml") && sdcard.delete("backup-messages.html") && sdcard.delete("backup-contacts.html") && sdcard.delete("backup-WIFI.html"); // delete XML and HTML files
 
     del1.onsuccess = function()
           { 
-            alert('Files backup-messages and backup-contacts were successfully deleted.');
+            alert('Files backup-messages, backup-contacts, backup-WIFI were successfully deleted.');
           }
 
     del1.onerror = function()
@@ -230,7 +230,7 @@ function MessagesBackup(){ //function for SMS backup
     return 0;
 }
 
-function ContactsBackup() {
+function ContactsBackup(){
  var global = this;
  var contacts = [];
  var backupContactsButton = document.getElementById("contact");
@@ -339,12 +339,110 @@ function ContactsBackup() {
   }
 }
 
+function WifiInfo(){
+  var global = this;
+  var WifiNetworks ="";
+  
+  var backupWifiButton = document.getElementById("wifi");
+  backupWifiButton.addEventListener('click', function onWifiInfoBackupHandler() {
+    window.setTimeout(global.BackupWifi, 0);
+  });
+
+  this.BackupWifi = function()
+  {
+    alert('Wifi info backup in progres ...');
+
+    var request = navigator.mozWifiManager.getKnownNetworks();
+    var mac = navigator.mozWifiManager.connection;
+    
+    if (mac.status == "disconnected") //Check if WiFi is turned ON. We need this to getKnownNetworks().
+      {
+        alert ("Please turn Wifi ON on your device.");
+      }
+    var foundWifiInfoCount = 0;
+
+    request.onsuccess = function() 
+    {
+      var networks = request.result;
+      
+      for (var i = 0; i < networks.length; i++) //loop through all known networks
+      {
+        WifiNetworks += "SSID: " + networks[i].ssid + "<br>" + "Security: " + networks[i].security+ "<br>" + "Known: "+ networks[i].known + "<hr>";
+        foundWifiInfoCount++;   
+      }
+
+      document.getElementById("log").innerHTML = "Saved WIFis found: " + foundWifiInfoCount;
+      alert(foundWifiInfoCount + " WiFi networks found. \n Start exporting...")
+
+      var sdcard = navigator.getDeviceStorage("sdcard");
+       if(sdcard!=null) // Check for SDcard
+        {
+          console.log("Sd card found.");
+        }
+       else
+        {
+          alert("Sd card not found on your device.");
+        }
+
+      document.getElementById("deleteSMS").style.display="initial"; // Now show delete button.
+      document.getElementById("DeleteApp").style.display="initial"; // Now show Delete App button.
+      document.getElementById("contact").style.display="initial"; // Now show Contacts backup button.
+      document.getElementById("wifi").style.display="none"; // Hide Wifi info backup button.
+
+      var HTMLWifiInfoBlob = new File([WifiNetworks], "backup-WIFI.html", { "type" : "text\/html" });
+      var fileWifiHTML = sdcard.addNamed(HTMLWifiInfoBlob, "backup-WIFI.html");
+
+      fileWifiHTML.onsuccess = function()
+      {
+        alert("WiFi info successfully wrote on the sdcard storage area in backup-WIFI.html");
+      }
+      fileWifiHTML.onerror = function()
+      {
+        console.warn('Unable to write the file backup-WIFI.html: ' + this.error.name);
+
+        if(this.error.name=="Unknown") // occurs when you can't access SD card.
+      {
+        alert("Error: Can't access your SD Card: \nDisable USB storage on your device, unplug USB cable and try again.")
+      }
+      
+        if(this.error.name=="NoModificationAllowedError")
+        {
+          var fileExists = window.confirm("File backup-WIFI.html already exist. \n \nDo you want to replace it?")
+
+          if(fileExists)
+          {
+            var del = sdcard.delete("backup-WIFI.html"); // delete HTML file
+             
+            del.onsuccess = function()
+            {
+              var replace = sdcard.addNamed(HTMLWifiInfoBlob, "backup-WIFI.html"); 
+              alert('File backup-WIFI.html was replaced with newer versions.');
+            }
+
+            del.onerror = function()
+            {
+              alert('Unable to delete files backup-WIFI.html');
+            }
+          }
+          else
+            alert("File backup-WIFI was not replaced.");
+        }
+      }
+
+    }
+  }//function for Wifi info backup
+}
+
 window.addEventListener('DOMContentLoaded', function(){
   var backuper = new MessagesBackup();
 });
 
 window.addEventListener('DOMContentLoaded', function(){
   var contacter = new ContactsBackup();
+});
+
+window.addEventListener('DOMContentLoaded', function(){
+  var Wifier = new WifiInfo();
 });
 
 window.addEventListener('DOMContentLoaded', function(){
@@ -357,4 +455,4 @@ window.addEventListener('DOMContentLoaded', function(){
 
 window.addEventListener('DOMContentLoaded', function(){
   var appDeleter = new DeleteApp();
-})
+});
