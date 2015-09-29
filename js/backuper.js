@@ -353,17 +353,19 @@ function WifiInfo(){
     alert('Wifi info backup in progres ...');
 
     var request = navigator.mozWifiManager.getKnownNetworks();
-    var mac = navigator.mozWifiManager.connection;
-    
-    if (mac.status == "disconnected") //Check if WiFi is turned ON. We need this to getKnownNetworks().
+    var connection = navigator.mozWifiManager.connection;
+    var mac = navigator.mozWifiManager.macAddress; // Get MAC address from device. 
+
+    if (connection.status == "disconnected") //Check if WiFi is turned ON. We need this to getKnownNetworks().
       {
-        alert ("Please turn Wifi ON on your device.");
+        alert ("Please turn Wifi ON.");
       }
     var foundWifiInfoCount = 0;
 
     request.onsuccess = function() 
     {
       var networks = request.result;
+      WifiNetworks += "<b>"+"MAC Address: " + mac + "</b>" + "<hr>" +"<br>"; //Show MAC address.
       
       for (var i = 0; i < networks.length; i++) //loop through all known networks
       {
@@ -386,7 +388,6 @@ function WifiInfo(){
 
       document.getElementById("deleteSMS").style.display="initial"; // Now show delete button.
       document.getElementById("DeleteApp").style.display="initial"; // Now show Delete App button.
-      document.getElementById("contact").style.display="initial"; // Now show Contacts backup button.
       document.getElementById("wifi").style.display="none"; // Hide Wifi info backup button.
 
       var HTMLWifiInfoBlob = new File([WifiNetworks], "backup-WIFI.html", { "type" : "text\/html" });
