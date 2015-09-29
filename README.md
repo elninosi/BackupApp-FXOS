@@ -61,8 +61,9 @@ Wifi info (known networks) are stored as HTML regarding the scheme below :
 <message>
 
 ```
+MAC Address: xx:xx:xx:xx:xx:xx
 SSID: SSID of network
-Security: Network security type (WPA-EAP/WPA-PSK)
+Security: Network security type (WEP/WPA-EAP/WPA-PSK)
 Known: true
 
 ```
