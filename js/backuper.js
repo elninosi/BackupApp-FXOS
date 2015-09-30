@@ -62,7 +62,7 @@ function MessagesBackup(){ //function for SMS backup
   document.getElementById("deleteSMS").style.display="none"; // Hide delete button for now.
   document.getElementById("DeleteApp").style.display="none"; // Hide Delete App button. for now.
 
-  alert('Welcome!\n \n This app allows you to backup SMS messages and Contacts in XML and HTML format on your SD card.');
+  alert('Welcome!\n \n This app allows you to backup SMS messages, Contacts and WiFi info on your SD card.');
   var global = this;
   var messages = [];
   var messages1 = [];
