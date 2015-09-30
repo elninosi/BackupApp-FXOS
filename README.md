@@ -1,11 +1,11 @@
 # BackupApp-FXOS
 
-Firefox OS app for fetching SMS messages and Contacts from phone.
+Firefox OS app for fetching SMS messages, Contacts and WiFi info from phone.
 
-Creates backup-messages.xml, backup-messages.xml and backup-contacts.html in your SD card.
+Creates backup-messages.xml, backup-messages.xml, backup-contacts.html and backup-WIFI.html in your SD card.
 
 ###App screenshots:
-![backupapp](https://cloud.githubusercontent.com/assets/11082452/10075178/a7f22608-62d4-11e5-8c01-f500d9185d52.jpg)
+![backupapp](https://cloud.githubusercontent.com/assets/11082452/10190407/976c6cc0-676c-11e5-9e2b-07806b4709c0.jpg)
 
 ###Exported messages schemes:
 Messages are stored as XML regarding the scheme below :
