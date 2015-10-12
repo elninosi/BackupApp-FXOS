@@ -1,14 +1,14 @@
 {
   "name": "Backup App",
   "description": "Backup Contacts and SMS to the SD card",
-  "version": "0.3",
+  "version": "0.4",
   "type": "certified",
   "launch_path": "/index.html",
   "icons": {
     "284": "/images/backup284.png",
-	"120": "/images/backup120.png",
-	"84": "/images/backup84.png",
-	"60": "/images/backup60.png"
+	  "120": "/images/backup120.png",
+	  "84": "/images/backup84.png",
+	  "60": "/images/backup60.png"
   },
   "developer": {
     "name": "Nino Vranešič",
