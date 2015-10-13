@@ -58,12 +58,12 @@ function DeleteFile(){ // function for deleting files
   }
 }
 
-function MessagesBackup(){ //function for SMS backup
+function MessagesBackup(){ //function for SMS + MMS backup
 
   document.getElementById("deleteSMS").style.display="none"; // Hide delete button for now.
   document.getElementById("DeleteApp").style.display="none"; // Hide Delete App button. for now.
 
-  alert('Welcome!\n \n This app allows you to backup SMS messages, Contacts and WiFi info on your SD card.');
+  alert('Welcome!\n \n This app allows you to backup SMS and MMS messages, Contacts and WiFi info on your SD card.');
   var global = this;
   //var messages = [];
   var messages1 = [];
@@ -77,7 +77,7 @@ function MessagesBackup(){ //function for SMS backup
 
   this.BackupMessages = function() {
 
-    alert('SMS backup in progress ...');
+    alert('SMS and MMS backup in progress ...');
 
     // Get message manager
      var smsManager = window.navigator.mozSms || window.navigator.mozMobileMessage;
@@ -89,13 +89,13 @@ function MessagesBackup(){ //function for SMS backup
     var request = smsManager.getMessages(null, false);
 
     // Process messages
-    var foundSmsCount = 0;
+    var foundSmsMmsCount = 0;
     request.onsuccess = function() {
       // Get cursor
       var domCursor = request;
       if (!domCursor.result) {
         console.log('End of message');
-        global.ExportMessages(foundSmsCount);
+        global.ExportMessages(foundSmsMmsCount);
         return;
       }
 
@@ -106,8 +106,8 @@ function MessagesBackup(){ //function for SMS backup
       //messages.push(xmlMessage);
       messages1.push(HTMLMessage);
 
-      foundSmsCount++;
-      document.getElementById("log").innerHTML = "SMS found: " + foundSmsCount; // SMS counter status.
+      foundSmsMmsCount++;
+      document.getElementById("log").innerHTML = "Messages found: " + foundSmsMmsCount; // SMS + MMS counter status.
       // Now get next message in the list
       domCursor.continue();
     };
@@ -143,6 +143,27 @@ function MessagesBackup(){ //function for SMS backup
   this.BuildHTMLMessage = function(message) {
     var date = new Date (message.timestamp); //convert date to human readable form
 
+    if(message.type=="mms")
+    {
+      var html = '<p>';
+    html += 'Type: ' + message.type + '<br>';
+    html += 'Message ID: ' + message.id + '<br>';
+    html += 'Message thread ID: ' + message.threadId + '<br>';
+    html += 'Message subject:<br><b>' + message.subject + '</b><br>';
+    html += 'Message attachments:<br><b>' + JSON.stringify(message.attachments) + '</b><br>';
+    html += 'State of message? ' + message.delivery + '<br>';
+    html += 'Is message readed? ' + message.read + '<br>';
+    html += 'Message receiver: <b>' + message.receivers + '</b><br>';
+    html += 'Message sender: <b>' + message.sender + '</b><br>';
+    html += 'Time: ' + date + '<br>';
+    html += 'Message class: ' + message.messageClass + '<hr>';
+    html += '</p>';
+
+    return html;
+    }
+
+    if (message.type=="sms")
+    {
     var html = '<p>';
     html += 'Type: ' + message.type + '<br>';
     html += 'Message ID: ' + message.id + '<br>';
@@ -157,17 +178,18 @@ function MessagesBackup(){ //function for SMS backup
     html += '</p>';
 
     return html;
+    }
   };
 
   /**
    * Export messages in output file (backup-messages.xml and backup-messages.html)
    */
-  this.ExportMessages = function(foundSmsCount) {
+  this.ExportMessages = function(foundSmsMmsCount) {
 
-    alert(foundSmsCount + " messages found.\n Start exporting...");
+    alert(foundSmsMmsCount + " messages found.\n Start exporting...");
 
     //messages.unshift('<?xml version="1.0"?>\n'); // XML document declaration
-    messages1.unshift('<!DOCTYPE html>','<head><title>SMS backup FXOS</title><meta charset="utf-8"></head>') // HTML document declaration, UTF-8 encoding
+    messages1.unshift('<!DOCTYPE html>','<head><title>Messages SMS/MMS backup FXOS</title><meta charset="utf-8"></head>') // HTML document declaration, UTF-8 encoding
 
 
     //var XMLBlob = new Blob(messages, { "type" : "text\/xml" }); // XML blob
@@ -186,7 +208,7 @@ function MessagesBackup(){ //function for SMS backup
 
     document.getElementById("deleteSMS").style.display="initial"; // Now show delete button.
     document.getElementById("DeleteApp").style.display="initial"; // Now show Delete App button.
-    document.getElementById("backupSMS").style.display="none"; // Hide SMS backup button.
+    document.getElementById("backupSMS").style.display="none"; // Hide Messages backup button.
 
 
     //var fileXMLHTML = sdcard.addNamed(XMLBlob, "backup-messages.xml") && sdcard.addNamed(HTMLBlob, "backup-messages.html");   // Save files 
