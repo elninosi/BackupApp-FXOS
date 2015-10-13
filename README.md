@@ -1,34 +1,55 @@
 # BackupApp-FXOS
 
-Firefox OS app for fetching SMS messages, Contacts and WiFi info from phone.
+Firefox OS app for fetching SMS + MMS messages, Contacts and WiFi info from phone.
 
-Creates backup-messages.html, backup-contacts.html and backup-WIFI.html in your SD card.
+Creates backup-messages.html, backup-contacts.html and backup-WIFI.html on SD card.
 
 ###App screenshots:
 ![backupapp](https://cloud.githubusercontent.com/assets/11082452/10190407/976c6cc0-676c-11e5-9e2b-07806b4709c0.jpg)
 
 ###Exported messages schemes:
 
-Messages are stored as HTML regarding the scheme below :
+SMS Messages are stored as HTML regarding the scheme below :
 <message>
 
 ```
 Type: sms
-Message ID: 1
-Message thread ID: 1
+Message ID: XXX
+Message thread ID: XXX
 Message body:
 Test
 Is message sent or recieved? received
 Is message readed? true
 Message receiver: xxxxxxxxxx
 Message sender: xxxxxxxxxx
-Time: TIME
-Message class: normal
+Time: Day Month DD YYYY TT:TT:TT GMT+XXXX (CET)
+Message class: normal/class-0/class-1/class-2/class-3
 
 ```
 </message>
+
+MMS Messages are stored as HTML regarding the scheme below :
+<message>
+
+```
+Type: mms
+Message ID: XXX
+Message thread ID: XXX
+Message subject:
+Test
+Message attachments: 
+[{"id":"<100MEDIA_IMAGXXXX>","location":"100MEDIA_IMAGXXXX.jpg","content":{}},{"id":"","location":"text_0.txt","content":{}}]
+State of te message? sending/sent/not-download/received/error
+Is message readed? true/false
+Message receiver: xxxxxxxxxx
+Message sender: xxxxxxxxxx
+Time: Day Month DD YYYY TT:TT:TT GMT+XXXX (CET)
+
+```
+</message>
+
 ###Exported Contacts scheme:
-Contats are stored as HTML regarding the scheme below :
+Contacts are stored as HTML regarding the scheme below :
 <message>
 
 ```
