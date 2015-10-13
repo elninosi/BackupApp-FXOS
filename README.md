@@ -5,7 +5,10 @@ Firefox OS app for fetching SMS + MMS messages, Contacts and WiFi info from phon
 Creates backup-messages.html, backup-contacts.html and backup-WIFI.html on SD card.
 
 ###App screenshots:
-![backupapp](https://cloud.githubusercontent.com/assets/11082452/10190407/976c6cc0-676c-11e5-9e2b-07806b4709c0.jpg)
+<p align="center">
+  <img src="https://cloud.githubusercontent.com/assets/11082452/10456233/820528f0-71c0-11e5-81f8-85ae75567839.jpg" width="45%" height="45%" />
+</p>
+
 
 ###Exported messages schemes:
 
