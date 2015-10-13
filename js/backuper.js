@@ -156,7 +156,7 @@ function MessagesBackup(){ //function for SMS + MMS backup
     html += 'Message receiver: <b>' + message.receivers + '</b><br>';
     html += 'Message sender: <b>' + message.sender + '</b><br>';
     html += 'Time: ' + date + '<br>';
-    html += 'Message class: ' + message.messageClass + '<hr>';
+    html += '<hr>';
     html += '</p>';
 
     return html;
