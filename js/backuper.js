@@ -274,7 +274,7 @@ function ContactsBackup(){
   {
     alert('Contacts backup in progres ...');
 
-    var request = navigator.mozContacts.getAll();
+    var request = navigator.mozContacts.getAll({});
     var foundContactsCount = 0;
 
     request.onsuccess = function () {
