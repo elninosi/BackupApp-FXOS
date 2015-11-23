@@ -272,7 +272,7 @@ function ContactsBackup(){
 
  this.BackupContacts = function()
   {
-    alert('Contacts backup in progres ...');
+    alert('Contacts backup in progress ...');
 
     var request = navigator.mozContacts.getAll({});
     var foundContactsCount = 0;
@@ -382,7 +382,7 @@ function WifiInfo(){
 
   this.BackupWifi = function()
   {
-    alert('Wifi info backup in progres ...');
+    alert('Wifi info backup in progress ...');
 
     var request = navigator.mozWifiManager.getKnownNetworks();
     var connection = navigator.mozWifiManager.connection;
