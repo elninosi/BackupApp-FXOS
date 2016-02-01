@@ -34,7 +34,7 @@ Is message sent or received? received
 Message read? true
 Message receiver: xxxxxxxxxx
 Message sender: xxxxxxxxxx
-Time: Day Month DD YYYY TT:TT:TT GMT+XXXX (CET)
+Time: Day Month YYYY TT:TT:TT GMT+XXXX (CET)
 Message class: normal/class-0/class-1/class-2/class-3
 
 ```
@@ -55,7 +55,7 @@ State of message? sending/sent/not-download/received/error
 Message read? true/false
 Message receiver: xxxxxxxxxx
 Message sender: xxxxxxxxxx
-Time: Day Month DD YYYY TT:TT:TT GMT+XXXX (CET)
+Time: Day Month YYYY TT:TT:TT GMT+XXXX (CET)
 
 ```
 </message>
