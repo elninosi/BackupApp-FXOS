@@ -152,7 +152,7 @@ function MessagesBackup(){ //function for SMS + MMS backup
     html += 'Message subject:<br><b>' + message.subject + '</b><br>';
     html += 'Message attachments:<br><b>' + JSON.stringify(message.attachments) + '</b><br>';
     html += 'State of message? ' + message.delivery + '<br>';
-    html += 'Is message readed? ' + message.read + '<br>';
+    html += 'Message read? ' + message.read + '<br>';
     html += 'Message receiver: <b>' + message.receivers + '</b><br>';
     html += 'Message sender: <b>' + message.sender + '</b><br>';
     html += 'Time: ' + date + '<br>';
@@ -170,7 +170,7 @@ function MessagesBackup(){ //function for SMS + MMS backup
     html += 'Message thread ID: ' + message.threadId + '<br>';
     html += 'Message body:<br><b>' + message.body + '</b><br>';
     html += 'Is message sent or received? ' + message.delivery + '<br>';
-    html += 'Is message readed? ' + message.read + '<br>';
+    html += 'Message read? ' + message.read + '<br>';
     html += 'Message receiver: <b>' + message.receiver + '</b><br>';
     html += 'Message sender: <b>' + message.sender + '</b><br>';
     html += 'Time: ' + date + '<br>';
