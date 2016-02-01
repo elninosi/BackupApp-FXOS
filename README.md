@@ -31,7 +31,7 @@ Message thread ID: XXX
 Message body:
 Test
 Is message sent or received? received
-Is message readed? true
+Message read? true
 Message receiver: xxxxxxxxxx
 Message sender: xxxxxxxxxx
 Time: Day Month DD YYYY TT:TT:TT GMT+XXXX (CET)
@@ -52,7 +52,7 @@ Test
 Message attachments: 
 [{"id":"<100MEDIA_IMAGXXXX>","location":"100MEDIA_IMAGXXXX.jpg","content":{}},{"id":"","location":"text_0.txt","content":{}}]
 State of message? sending/sent/not-download/received/error
-Is message readed? true/false
+Message read? true/false
 Message receiver: xxxxxxxxxx
 Message sender: xxxxxxxxxx
 Time: Day Month DD YYYY TT:TT:TT GMT+XXXX (CET)
