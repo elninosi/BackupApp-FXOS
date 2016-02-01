@@ -214,8 +214,8 @@ function MessagesBackup(){ //function for SMS + MMS backup
     //var fileXMLHTML = sdcard.addNamed(XMLBlob, "backup-messages.xml") && sdcard.addNamed(HTMLBlob, "backup-messages.html");   // Save files 
     var fileXMLHTML = sdcard.addNamed(HTMLBlob, "backup-messages.html");
     fileXMLHTML.onsuccess = function() {
-      //alert('Messages successfully wrote on the sdcard storage area in backup-messages.xml and backup-messages.html');
-      alert('Messages successfully wrote on the sdcard storage area in backup-messages.html');
+      //alert('Messages successfully wrritten the sdcard storage area in backup-messages.xml and backup-messages.html');
+      alert('Messages successfully written on the sdcard storage area in backup-messages.html');
     }
     // An error typically occur if a file with the same name already exist
     fileXMLHTML.onerror = function() {
@@ -337,7 +337,7 @@ function ContactsBackup(){
 
     var fileContactsHTML = sdcard.addNamed(HTMLContactsBlob, "backup-contacts.html");
     fileContactsHTML.onsuccess = function(){
-      alert('Contacts successfully wrote on the sdcard storage area in backup-contacts.html')
+      alert('Contacts successfully written on the sdcard storage area in backup-contacts.html')
     }
     fileContactsHTML.onerror = function(){
       if(this.error.name=="Unknown") // occurs when you can't access SD card.
@@ -427,7 +427,7 @@ function WifiInfo(){
 
       fileWifiHTML.onsuccess = function()
       {
-        alert("WiFi info successfully wrote on the sdcard storage area in backup-WIFI.html");
+        alert("WiFi info successfully written on the sdcard storage area in backup-WIFI.html");
       }
       fileWifiHTML.onerror = function()
       {
